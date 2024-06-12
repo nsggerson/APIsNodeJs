@@ -1,0 +1,17 @@
+{
+  "name": "apisnodejs",
+  "version": "1.0.0",
+  "description": "Este projeto é um exemplo de API RESTful construída com Node.js, Express e MongoDB, demonstrando um conjunto completo de operações CRUD e funcionalidades adicionais. O curso é ministrado por [Balta.io](https://balta.io) e está disponível no [YouTube](https://www.youtube.com/watch?v=wDWdqlYxfcw&list=PLHlHvK2lnJndvvycjBqQAbgEDqXxKLoqn&ab_channel=balta.io).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.3.5",
+    "express": "^4.19.2",
+    "http": "^0.0.1-security"
+  }
+}
