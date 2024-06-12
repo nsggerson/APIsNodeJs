@@ -70,4 +70,4 @@ Este projeto é um exemplo de API RESTful construída com Node.js, Express e Mon
 
 1. Clone o repositório:
    ```sh
-   [git clone https://github.com/seu_usuario/ServerNodeApi.git](https://github.com/nsggerson/APIsNodeJs.git)
+   [https://github.com/nsggerson/APIsNodeJs.git]
