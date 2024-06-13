@@ -29,6 +29,7 @@ app.use('/', route);
 
 server.listen(port);
 server.on('error', onError);
+server.on('Listening', onListening);
 
 //Função normalize procura uma porta disponível se não hover pega a  3000
 function normalizePort(val){
@@ -67,4 +68,11 @@ function onError(error){
     }
 }
 
+function onListening(params) {
+   const addr = server.address();
+   const bind = typeof addr === 'string'
+   ? 'pipe' + addr
+   : 'port' + addr.port;
+   debug('Listening on' + bind); 
+}
 console.log('API rodando na porta '+port);
