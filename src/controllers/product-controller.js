@@ -12,6 +12,16 @@ exports.post = (req, res, next) =>{
     });
 };
 
+exports.get = (req, res, next) =>{
+    Product
+        .find({active: true},'title price slug')
+        .then(data => {
+            res.status(200).send(data)
+        }).catch(e =>{
+            res.status(400).send({ e });
+        });
+}
+
 exports.put = (req, res, next) =>{
     const id = req.params.id;
     res.status(200).send({
