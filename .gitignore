@@ -1,2 +1,6 @@
+#ignore file
+start-server.bat
+
+#ignore folder
 node_modules/
-start.bat
+
