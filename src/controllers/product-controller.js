@@ -22,6 +22,55 @@ exports.get = (req, res, next) =>{
         });
 }
 
+exports.getAll = (req, res, next) =>{
+    Product
+        .find({active: req.params.active})
+        .then(data => {
+            res.status(200).send(data)
+        }).catch(e =>{
+            res.status(400).send({ e });
+        });
+}
+
+exports.getBySlug = (req, res, next) =>{
+    Product
+        .findOne({
+            slug: req.params.slug,
+            active: true}
+            ,'title description price slug tags')
+        .then(data => {
+            res.status(200).send(data)
+        }).catch(e =>{
+            res.status(400).send({ e });
+        });
+}
+
+exports.getById = (req, res, next) =>{
+    Product
+        .findOne({
+            id: req.params.Id,
+            active: true}
+            ,'title description price slug tags')
+        .then(data => {
+            res.status(200).send(data)
+        }).catch(e =>{
+            res.status(400).send({ e });
+        });
+}
+
+exports.getByTag = (req, res, next) =>{
+    Product
+        .find({
+            slug: req.params.tag,
+            active: true}
+            ,'title description price slug tags')
+        .then(data => {
+            res.status(200).send(data)
+        }).catch(e =>{
+            res.status(400).send({ e });
+        });
+}
+
 exports.put = (req, res, next) =>{
     const id = req.params.id;
     res.status(200).send({
