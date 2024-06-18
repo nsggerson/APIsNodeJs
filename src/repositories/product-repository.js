@@ -3,32 +3,38 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product'); 
 
-exports.get = () =>{
-    return Product
+exports.get = async () =>{
+    const result= await Product
         .find({
             active: true
         },'title price slug');
+    
+    return result;
 };
 
-exports.getBySlug= (slug) =>{
-    return Product
+exports.getBySlug= async (slug) =>{
+    const result = await Product
         .findOne({
             slug: slug,
             active: true}
             ,'title description price slug tags');
+    
+    return result;
 };
 
-exports.getById = (id) =>{
-    return Product
+exports.getById = async (id) =>{
+    const result = await Product
         .findOne(id);
+    return result;
 }
 
-exports.getByTag= (tag) =>{
-    return Product
+exports.getByTag= async (tag) =>{
+    const result= await  Product
         .find({
             tags: tag, 
             active: true
         },'title description price slug tags')
+    return result;
 };
 
 exports.create = (data) =>{
