@@ -2,15 +2,7 @@
 
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product'); 
-
-exports.post = (req, res, next) =>{
-    var product = new Product(req.body);
-    product.save().then(x => {
-        res.status(201).send({message:'Produto cadastrado com sucesso!'});
-    }).catch(e =>{
-        res.status(400).send({message:'Falha ao cadastrar o produto', data: e});
-    });
-};
+const ValidationContract = require('../validators/validator');
 
 exports.get = (req, res, next) =>{
     Product
@@ -70,6 +62,27 @@ exports.getByTag = (req, res, next) =>{
             res.status(400).send({ e });
         });
 }
+
+exports.post = (req, res, next) =>{
+    let contract = new ValidationContract();
+
+    contract.hasMinLen(req.body.title, 3, 'O título deve conter pelo menos 3 caracteres');
+    contract.hasMinLen(req.body.slug, 3, 'O slog deve conter pelo menos 3 caracteres');
+    contract.hasMinLen(req.body.description, 3, 'A description deve conter pelo menos 3 caracteres');
+
+    //Se os dados forem inváçidos
+    if (!contract.isValid()) {
+        res.status(400).send(contract.errors()).end;
+        return;
+    }
+
+    var product = new Product(req.body);
+    product.save().then(x => {
+        res.status(201).send({message:'Produto cadastrado com sucesso!'});
+    }).catch(e =>{
+        res.status(400).send({message:'Falha ao cadastrar o produto', data: e});
+    });
+};
 
 exports.put = (req, res, next) =>{
     Product
