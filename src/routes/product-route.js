@@ -8,12 +8,12 @@ router.get('/', controller.get);
 router.get('/:slug', controller.getBySlug);
 router.get('/tags/:tag', controller.getByTag);
 
-router.get('/admin/', controller.getAll);
+router.get('/admin/active/:active', controller.getAll);
 router.get('/admin/:id', controller.getById);
 
 
 router.post('/', controller.post);
 router.put('/:id', controller.put);
-router.delete('/', controller.delete);
+router.delete('/:id', controller.delete);
 
 module.exports = router;

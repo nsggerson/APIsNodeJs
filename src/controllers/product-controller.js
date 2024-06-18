@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const Product = mongoose.model('Product'); // Certifique-se de que o nome do modelo está correto
+const Product = mongoose.model('Product'); 
 
 exports.post = (req, res, next) =>{
     var product = new Product(req.body);
@@ -22,7 +22,7 @@ exports.get = (req, res, next) =>{
         });
 }
 
-exports.getAll = (req, res, next) =>{
+exports.getAll = (req, res, next) =>{    
     Product
         .find({active: req.params.active})
         .then(data => {
@@ -61,7 +61,7 @@ exports.getById = (req, res, next) =>{
 exports.getByTag = (req, res, next) =>{
     Product
         .find({
-            slug: req.params.tag,
+            tags: req.params.tag,
             active: true}
             ,'title description price slug tags')
         .then(data => {
@@ -72,11 +72,11 @@ exports.getByTag = (req, res, next) =>{
 }
 
 exports.put = (req, res, next) =>{
-    console.log(req.body);
     Product
         .findByIdAndUpdate(req.params.id,{
            $set: {
                 title: req.body.title,
+                slug: req.body.slug,
                 description: req.body.description,
                 price: req.body.price
            } 
@@ -93,7 +93,17 @@ exports.put = (req, res, next) =>{
 };
 
 exports.delete = (req, res, next) =>{
-    res.status(200).send({
-        message:'Aquivo deletado com sucesso!',
-    });
+    Product
+        .findByIdAndDelete(req.body.id          
+        
+        ).then(x =>{
+            res.status(200).send({
+                message: 'Produto removido com sucesso!'
+            });
+        }).catch(e=>{
+            res.status(400).send({
+                message:'Falha ao remover o produto!',
+                data: e
+            });
+        });
 };
