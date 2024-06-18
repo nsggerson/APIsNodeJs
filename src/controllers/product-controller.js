@@ -1,7 +1,5 @@
 'use strict';
 
-const mongoose = require('mongoose');
-const Product = mongoose.model('Product');
 const ValidationContract = require('../validators/validator');
 const repository = require('../repositories/product-repository');
 
@@ -47,17 +45,6 @@ exports.getByTag = async (req, res, next) => {
             message: 'Falha ao precessar sua requisição'
         }); 
     }    
-};
-
-exports.getAll = (req, res, next) => {
-    console.log('Método contem uma estrutura antiga, não utilizar em projetos reais');
-    Product
-        .find({ active: req.params.active })
-        .then(data => {
-            res.status(200).send(data)
-        }).catch(e => {
-            res.status(400).send({ e });
-        });
 };
 
 exports.post = async (req, res, next) => {

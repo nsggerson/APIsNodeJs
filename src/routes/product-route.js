@@ -7,8 +7,6 @@ const controller = require('../controllers/product-controller');
 router.get('/', controller.get);
 router.get('/:slug', controller.getBySlug);
 router.get('/tags/:tag', controller.getByTag);
-
-router.get('/admin/active/:active', controller.getAll);
 router.get('/admin/:id', controller.getById);
 
 
