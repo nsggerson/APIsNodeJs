@@ -1,7 +1,10 @@
 #ignore file
 start-server.bat
-config.js
+
 
 #ignore folder
 node_modules/
+
+#ignore specific file
+src/config.js
 
