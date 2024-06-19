@@ -3,11 +3,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose =  require('mongoose');
-
-mongoose.connect('mongodb+srv://nsggerson:jp1d51Z36wgtFxt6@cluster0.nfe72rg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+const config = require('./config');
 
 const app = express();
 const router = express.Router();
+
+//mongoose.connect('mongodb+srv://nsggerson:jp1d51Z36wgtFxt6@cluster0.nfe72rg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+mongoose.connect(config.connectionString);
+
 //Carregando os models
 const Product = require('./models/product');
 const Customer = require('./models/Customer');
