@@ -1,5 +1,5 @@
 #removendo arquivo especifico
 src/config.js
 
-#removendo diretório
+#removendo diretórios
 node_modules/
