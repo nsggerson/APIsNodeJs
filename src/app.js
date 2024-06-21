@@ -8,7 +8,6 @@ const config = require('./config');
 const app = express();
 const router = express.Router();
 
-//mongoose.connect('mongodb+srv://nsggerson:jp1d51Z36wgtFxt6@cluster0.nfe72rg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 mongoose.connect(config.connectionString);
 
 //Carregando os models
