@@ -4,8 +4,8 @@ const ValidationContract = require('../validators/validator');
 const repository = require('../repositories/customer-repository');
 const md5 = require('md5');
 const nodemailer = require('../services/nodemailer-service'); // Importando o service
-const emailSender  = require('../services/mailersend-service'); // Importando o service
 const fs = require('fs'); // Para leitura do template (opcional)
+
 
 exports.get = async (req, res, next) => {
   try {
