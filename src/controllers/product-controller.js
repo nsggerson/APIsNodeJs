@@ -8,11 +8,6 @@ const guid = require('guid');
 const config = require('../config');
 const uuid = require('uuid');
 
-// const azure =  require('azure-storage');
-// const guid =  require('guid');
-// const config = require('../config');
-// const util = require('util');
-
 exports.get = async (req, res, next) => {
     try{
         var data = await repository.get();
@@ -117,6 +112,7 @@ exports.post = async (req, res, next) => {
             message: 'Produto cadastrado com sucesso!'
         });
     } catch (e) {
+        console.log('produto com erro')
         console.error(e);
         res.status(500).send({
             message: 'Falha ao processar sua requisição'

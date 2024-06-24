@@ -19,6 +19,7 @@
     "git-filter-repo": "^0.0.30",
     "guid": "^0.0.12",
     "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
     "mailersend": "^2.2.0",
     "md5": "^2.3.0",
     "mongoose": "^8.4.1",

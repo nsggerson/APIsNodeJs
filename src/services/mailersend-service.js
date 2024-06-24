@@ -1,3 +1,5 @@
+'use strict'
+
 const { MailerSend, EmailParams, Sender, Recipient } = require('mailersend');
 
 const mailerSend = new MailerSend({

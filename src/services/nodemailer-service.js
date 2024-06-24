@@ -1,3 +1,5 @@
+'use strict'
+
 const nodemailer = require('nodemailer');
 const fs = require('fs'); // Importação do módulo fs
 const config = require('../config');

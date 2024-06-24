@@ -5,7 +5,7 @@ const repository = require('../repositories/customer-repository');
 const md5 = require('md5');
 const nodemailer = require('../services/nodemailer-service'); // Importando o service
 const fs = require('fs'); // Para leitura do template (opcional)
-
+const autheService = require('../services/auth-service');
 
 exports.get = async (req, res, next) => {
   try {
@@ -38,9 +38,43 @@ exports.post = async (req, res, next) => {
     });
 
     // Envio do email de boas-vindas
-   await nodemailer.sendBoasVindas(req.body.email, req.body.name);
+    await nodemailer.sendBoasVindas(req.body.email, req.body.name);
 
     res.status(201).send({ message: 'Cliente cadastrado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao processar sua requisição:', error);
+    // Incluir log do erro
+    res.status(500).send({ message: 'Falha ao processar sua requisição' });
+  }
+};
+
+exports.authenticate = async (req, res, next) => {
+  try {
+    const customer = await repository.authenticate({
+      email: req.body.email,
+      password: md5(req.body.password + global.SALT_KEY)
+    });
+
+   
+    if (!customer) {
+      res.status(404).send({
+        message:"Usuário ou senha inválido!"
+      });
+      return;
+    }
+
+    const token = await autheService.generateToken({
+      email: customer.email,
+      name: customer.name
+    });
+    
+    res.status(201).send({
+      token: token,
+      data:{
+        email: customer.email,
+        name: customer.name
+      }
+    });
   } catch (error) {
     console.error('Erro ao processar sua requisição:', error);
     // Incluir log do erro

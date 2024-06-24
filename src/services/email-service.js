@@ -1,4 +1,5 @@
 'use strict'
+
 const config = require('../config');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(config.sendgridkey);
