@@ -85,20 +85,27 @@ exports.authenticate = async (req, res, next) => {
 
 exports.refreshToken = async (req, res, next) => {
   try {
-    const customer = await repository.authenticate({
-      email: req.body.email,
-      password: md5(req.body.password + global.SALT_KEY)
-    });
+    //Recupera o token
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    //Decodificação o token
+    const data = await authorizeService.decodeToken(token);
+
+    const customer = await repository.getById(data.id);
+    
+    // const customer = await repository.authenticate({
+    //   email: req.body.email,
+    //   password: md5(req.body.password + global.SALT_KEY)
+    // });
 
    
     if (!customer) {
-      res.status(404).send({
-        message:"Usuário ou senha inválido!"
+      res.status(401).send({
+        message:"Cliente não encotrado!"
       });
       return;
     }
 
-    const token = await autheService.generateToken({
+    const tokenData = await autheService.generateToken({
       id: customer._id,
       email: customer.email,
       name: customer.name
