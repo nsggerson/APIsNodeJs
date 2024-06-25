@@ -63,39 +63,39 @@ exports.post = async (req, res, next) => {
     }
 
     try {
-        // Cria o Blob Service
-        const blobSvc = azure.createBlobService(config.useImageBlobcontainerConnectionString);
+        // // Cria o Blob Service
+        // const blobSvc = azure.createBlobService(config.useImageBlobcontainerConnectionString);
 
-        // Obtem a imagem em base64 do corpo da requisição
-        let rawdata = req.body.image;
-        // Separa a hash recebida em duas partes
-        let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        // // Obtem a imagem em base64 do corpo da requisição
+        // let rawdata = req.body.image;
+        // // Separa a hash recebida em duas partes
+        // let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
 
-        //Valida o fomato do arquivo
-        if (!matches) {
-            throw new Error('Formato de imagem inválido');
-        }
+        // //Valida o fomato do arquivo
+        // if (!matches) {
+        //     throw new Error('Formato de imagem inválido');
+        // }
 
-        // Obtém o tipo da imagem
-        let type = matches[1];
-        let extension = type.split('/')[1];
-        let filename = guid.raw().toString() + '.' + extension;
-        // Obtém a imagem em si
-        let buffer = Buffer.from(matches[2], 'base64');
+        // // Obtém o tipo da imagem
+        // let type = matches[1];
+        // let extension = type.split('/')[1];
+        // let filename = guid.raw().toString() + '.' + extension;
+        // // Obtém a imagem em si
+        // let buffer = Buffer.from(matches[2], 'base64');
 
-        // Salva a imagem
-        await new Promise((resolve, reject) => {
-            blobSvc.createBlockBlobFromText('container1', filename, buffer, {
-                contentType: type
-            }, function (error, result, response) {
-                if (error) {
-                    console.error('Erro ao criar o blob:', error);
-                    filename = 'default.png';
-                    return reject(error);
-                }
-                resolve(result);
-            });
-        });
+        // // Salva a imagem
+        // await new Promise((resolve, reject) => {
+        //     blobSvc.createBlockBlobFromText('container1', filename, buffer, {
+        //         contentType: type
+        //     }, function (error, result, response) {
+        //         if (error) {
+        //             console.error('Erro ao criar o blob:', error);
+        //             filename = 'default.png';
+        //             return reject(error);
+        //         }
+        //         resolve(result);
+        //     });
+        // });
 
         await repository.create({
             title: req.body.title,
@@ -133,7 +133,7 @@ exports.put = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     try {
         await repository.delete(req.body.id);
-        res.status(200).send({ message: 'Produto atualizado com sucesso!' });
+        res.status(200).send({ message: 'O produto foi removido do catalogo!' });
     }
     catch (e) {
         res.status(500), send({

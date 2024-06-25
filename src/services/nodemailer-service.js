@@ -20,10 +20,7 @@ const smtp = nodemailer.createTransport({
 });
 
 exports.sendBoasVindas = async (email, nome) => {
-  // Leitura do template de email (opcional)
-  // const emailTemplate = fs.readFileSync('path/to/your/email-template.html', 'utf-8');
-  // const emailBody = emailTemplate ? emailTemplate.replace('{0}', nome) : `Olá ${nome}, seja bem-vindo(a) à nossa loja!`;
-
+  
   const configEmail = {
     to: email,
     from: config.usernodemailer, // Use o email configurado
