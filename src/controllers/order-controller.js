@@ -3,7 +3,7 @@
 const ValidationContract = require('../validators/validator');
 const repository = require('../repositories/order-repository');
 const guid = require('guid');
-const authorizeService = require('../services/auth-service');
+const autheService = require('../services/auth-service');
 
 exports.get = async (req, res, next) => {
     try {
@@ -34,7 +34,7 @@ exports.post = async (req, res, next) => {
         //Recupera o token
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         //Decodificação o token
-        const data = await authorizeService.decodeToken(token);
+        const data = await autheService.decodeToken(token);
 
         await repository.create({
             customer: data.id,

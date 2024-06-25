@@ -88,16 +88,10 @@ exports.refreshToken = async (req, res, next) => {
     //Recupera o token
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     //Decodificação o token
-    const data = await authorizeService.decodeToken(token);
+    const data = await autheService.decodeToken(token);
 
     const customer = await repository.getById(data.id);
-    
-    // const customer = await repository.authenticate({
-    //   email: req.body.email,
-    //   password: md5(req.body.password + global.SALT_KEY)
-    // });
-
-   
+         
     if (!customer) {
       res.status(401).send({
         message:"Cliente não encotrado!"

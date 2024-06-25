@@ -3,10 +3,10 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/order-controller'); 
-const authorizeService = require('../services/auth-service');
+const autheService = require('../services/auth-service');
 
-router.get('/',authorizeService.authorize, controller.get);
-router.post('/',authorizeService.authorize, controller.post);
+router.get('/',autheService.authorize, controller.get);
+router.post('/',autheService.authorize, controller.post);
 
 
 
