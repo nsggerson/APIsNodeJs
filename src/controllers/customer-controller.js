@@ -64,6 +64,42 @@ exports.authenticate = async (req, res, next) => {
     }
 
     const token = await autheService.generateToken({
+      id: customer._id,
+      email: customer.email,
+      name: customer.name
+    });
+    
+    res.status(201).send({
+      token: token,
+      data:{
+        email: customer.email,
+        name: customer.name
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao processar sua requisição:', error);
+    // Incluir log do erro
+    res.status(500).send({ message: 'Falha ao processar sua requisição' });
+  }
+};
+
+exports.refreshToken = async (req, res, next) => {
+  try {
+    const customer = await repository.authenticate({
+      email: req.body.email,
+      password: md5(req.body.password + global.SALT_KEY)
+    });
+
+   
+    if (!customer) {
+      res.status(404).send({
+        message:"Usuário ou senha inválido!"
+      });
+      return;
+    }
+
+    const token = await autheService.generateToken({
+      id: customer._id,
       email: customer.email,
       name: customer.name
     });

@@ -3,6 +3,7 @@
 const ValidationContract = require('../validators/validator');
 const repository = require('../repositories/order-repository');
 const guid = require('guid');
+const authorizeService = require('../services/auth-service');
 
 exports.get = async (req, res, next) => {
     try {
@@ -22,20 +23,25 @@ exports.post = async (req, res, next) => {
     contract.isRequired(req.body.customer, 'O cliente é obrigatório');
     contract.isRequired(req.body.items, 'Os itens são obrigatórios');
     contract.hasMinLen(req.body.items, 1, 'Deve haver pelo menos um item no pedido');
-    
+
+
     if (!contract.isValid()) {
         res.status(400).send(contract.errors()).end();
         return;
     }
 
     try {
-        const data = {
-            customer: req.body.customer,
+        //Recupera o token
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        //Decodificação o token
+        const data = await authorizeService.decodeToken(token);
+
+        await repository.create({
+            customer: data.id,
             number: guid.raw().substring(0, 6),
             items: req.body.items
-        };
+        });
 
-        await repository.create(data);
         res.status(201).send({ message: 'Pedido cadastrado com sucesso!' });
     } catch (e) {
         res.status(500).send({

@@ -27,7 +27,6 @@ exports.authorize = function (req, res, next) {
                     message: 'Token Inválido'
                 });
             } else {
-                console.log('Usuário altorizado');
                 next();
             }
         });

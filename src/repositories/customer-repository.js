@@ -20,3 +20,8 @@ exports.authenticate = async (data) => {
     });
     return res;
 };
+
+exports.getById = async (id) => {
+  const result = await Customer.findById(id);
+  return result;  
+};
